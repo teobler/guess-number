@@ -18,7 +18,7 @@ public class InputHandlerTest {
 
   @Test
   public void
-      should_return_output_object_contains_the_count_of_the_position_and_the_numbers_are_all_right() {
+      should_return_output_object_contains_the_count_of_correct_numbers() {
     List<Integer> mockAnswer = new ArrayList<Integer>() {{
       add(1);
       add(5);
@@ -33,7 +33,7 @@ public class InputHandlerTest {
 
   @Test
   public void
-  should_return_output_object_contains_the_position_and_the_numbers_are_all_right_numbers() {
+  should_return_output_object_contains_correct_numbers() {
     List<Integer> mockAnswer = new ArrayList<Integer>() {{
       add(1);
       add(5);

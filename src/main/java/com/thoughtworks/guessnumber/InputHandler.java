@@ -10,7 +10,7 @@ public class InputHandler {
   public OutputObject handle(String input, List<Integer> answer) {
     List<Integer> inputNumbers = formatInputStringAsIntList(input);
 
-    handlePositionAndNumberAllRight(answer, inputNumbers);
+    handleCorrectNumbers(answer, inputNumbers);
 
     return this.outputObject;
   }
@@ -23,7 +23,7 @@ public class InputHandler {
         .collect(Collectors.toList());
   }
 
-  private void handlePositionAndNumberAllRight(List<Integer> answer, List<Integer> inputNumbers) {
+  private void handleCorrectNumbers(List<Integer> answer, List<Integer> inputNumbers) {
     for (int i = 0; i < inputNumbers.size(); i++) {
       if (inputNumbers.get(i).equals(answer.get(i))) {
         this.outputObject.allRightNumberCount++;
