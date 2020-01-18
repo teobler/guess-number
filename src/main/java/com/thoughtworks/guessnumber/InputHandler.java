@@ -16,7 +16,8 @@ public class InputHandler {
 
     for (int i = 0; i < inputNumbers.size(); i++) {
       if (inputNumbers.get(i).equals(answer.get(i))) {
-        outputObject.allRightNumber++;
+        outputObject.allRightNumberCount++;
+        outputObject.allRightNumbers.add(inputNumbers.get(i));
       }
     }
 
