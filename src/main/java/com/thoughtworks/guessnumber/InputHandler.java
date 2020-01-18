@@ -12,12 +12,7 @@ public class InputHandler {
     List<Integer> inputNumbers = formatInputStringAsIntList(input);
 
     List<Integer> restNumbers = handleCorrectNumbers(answer, inputNumbers);
-
-    restNumbers.forEach(number -> {
-      if (answer.contains(number)) {
-        this.outputObject.wrongPositionNumberCount++;
-      }
-    });
+    handleWrongPositionNumbers(answer, restNumbers);
 
     return this.outputObject;
   }
@@ -42,5 +37,14 @@ public class InputHandler {
     }
 
     return restNumbers;
+  }
+
+  private void handleWrongPositionNumbers(List<Integer> answer, List<Integer> restNumbers) {
+    restNumbers.forEach(number -> {
+      if (answer.contains(number)) {
+        this.outputObject.wrongPositionNumberCount++;
+        this.outputObject.wrongPositionNumbers.add(number);
+      }
+    });
   }
 }

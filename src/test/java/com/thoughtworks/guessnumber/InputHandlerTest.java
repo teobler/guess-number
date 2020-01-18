@@ -57,7 +57,7 @@ public class InputHandlerTest {
   }
 
   @Test
-  public void should_return_output_object_contains_the_count_of_wrong_position_numbers() {
+  public void should_return_output_object_contains_the_count_of_wrong_position_number() {
     List<Integer> mockAnswer =
         new ArrayList<Integer>() {
           {
@@ -71,5 +71,29 @@ public class InputHandlerTest {
     OutputObject outputObject = inputHandler.handle("1 2 3 4", mockAnswer);
 
     assertEquals(2, outputObject.wrongPositionNumberCount);
+  }
+
+  @Test
+  public void should_return_output_object_contains_wrong_position_numbers() {
+    List<Integer> mockAnswer =
+        new ArrayList<Integer>() {
+          {
+            add(1);
+            add(4);
+            add(3);
+            add(2);
+          }
+        };
+    List<Integer> wrongPositionNumbers =
+        new ArrayList<Integer>() {
+          {
+            add(2);
+            add(4);
+          }
+        };
+
+    OutputObject outputObject = inputHandler.handle("1 2 3 4", mockAnswer);
+
+    assertEquals(wrongPositionNumbers, outputObject.wrongPositionNumbers);
   }
 }
