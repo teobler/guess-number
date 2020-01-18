@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class AnswerGeneratorTest {
   AnswerGenerator answerGenerator;
@@ -20,5 +21,16 @@ public class AnswerGeneratorTest {
     List<Integer> answer = answerGenerator.generate();
 
     assertEquals(4, answer.size());
+  }
+
+  @Test
+  public void all_numbers_should_between_0_9() {
+    List<Integer> answer = answerGenerator.generate();
+
+    answer.forEach(
+        number -> {
+          assertTrue(number >= 0);
+          assertTrue(number <= 9);
+        });
   }
 }
