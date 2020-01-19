@@ -96,4 +96,26 @@ public class RefereeTest {
 
     assertEquals("1A1B", result);
   }
+
+  @Test
+  public void should_return_2A0B_given_guess_numbers_match_2_correct_numbers() {
+    List<String> answer = new ArrayList<String>() {{
+      add("1");
+      add("2");
+      add("3");
+      add("4");
+    }};
+    ArrayList<String> inputNumbers = new ArrayList<String>() {{
+      add("1");
+      add("2");
+      add("7");
+      add("8");
+    }};
+    Facade facade = mock(Facade.class);
+    when(facade.mapInputToList("1 2 7 8")).thenReturn(inputNumbers);
+
+    String result = referee.judge("1 2 7 8", answer);
+
+    assertEquals("2A0B", result);
+  }
 }
