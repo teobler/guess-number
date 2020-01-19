@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class AnswerGeneratorTest {
   AnswerGenerator answerGenerator;
@@ -20,5 +20,15 @@ public class AnswerGeneratorTest {
     List<Integer> answer = answerGenerator.generate();
 
     assertEquals(4, answer.size());
+  }
+
+  @Test
+  public void answer_number_should_between_0_and_9() {
+    List<Integer> answer = answerGenerator.generate();
+
+    answer.forEach(number -> {
+      assertTrue(number >= 0);
+      assertTrue(number <= 9);
+    });
   }
 }
