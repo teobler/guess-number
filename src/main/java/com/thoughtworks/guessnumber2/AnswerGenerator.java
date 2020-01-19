@@ -1,16 +1,21 @@
 package com.thoughtworks.guessnumber2;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 public class AnswerGenerator {
 
   public List<Integer> generate() {
-    return new ArrayList<Integer>() {{
-      add(1);
-      add(2);
-      add(3);
-      add(4);
-    }};
+    int MIN_ANSWER = 0;
+    int MAX_ANSWER = 9;
+    int ANSWER_SIZE = 4;
+
+    return ThreadLocalRandom.current()
+        .ints(MIN_ANSWER, MAX_ANSWER)
+        .distinct()
+        .limit(ANSWER_SIZE)
+        .boxed()
+        .collect(Collectors.toList());
   }
 }

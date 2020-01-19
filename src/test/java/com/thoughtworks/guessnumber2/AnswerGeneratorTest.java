@@ -3,6 +3,7 @@ package com.thoughtworks.guessnumber2;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashSet;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -30,5 +31,12 @@ public class AnswerGeneratorTest {
       assertTrue(number >= 0);
       assertTrue(number <= 9);
     });
+  }
+
+  @Test
+  public void answer_number_should_different_with_each_other() {
+    List<Integer> answer = answerGenerator.generate();
+
+    assertTrue(answer.stream().allMatch(new HashSet<>()::add));
   }
 }
