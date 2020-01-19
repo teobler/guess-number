@@ -118,4 +118,70 @@ public class RefereeTest {
 
     assertEquals("2A0B", result);
   }
+
+  @Test
+  public void should_return_0A2B_given_guess_numbers_match_2_correct_numbers_without_position() {
+    List<String> answer = new ArrayList<String>() {{
+      add("1");
+      add("2");
+      add("3");
+      add("4");
+    }};
+    ArrayList<String> inputNumbers = new ArrayList<String>() {{
+      add("2");
+      add("7");
+      add("1");
+      add("8");
+    }};
+    Facade facade = mock(Facade.class);
+    when(facade.mapInputToList("2 7 1 8")).thenReturn(inputNumbers);
+
+    String result = referee.judge("2 7 1 8", answer);
+
+    assertEquals("0A2B", result);
+  }
+
+  @Test
+  public void should_return_4A0B_given_guess_numbers_match_4_correct_numbers() {
+    List<String> answer = new ArrayList<String>() {{
+      add("1");
+      add("2");
+      add("3");
+      add("4");
+    }};
+    ArrayList<String> inputNumbers = new ArrayList<String>() {{
+      add("1");
+      add("2");
+      add("3");
+      add("4");
+    }};
+    Facade facade = mock(Facade.class);
+    when(facade.mapInputToList("1 2 3 4")).thenReturn(inputNumbers);
+
+    String result = referee.judge("1 2 3 4", answer);
+
+    assertEquals("4A0B", result);
+  }
+
+  @Test
+  public void should_return_0A4B_given_guess_numbers_match_4_correct_numbers_without_position() {
+    List<String> answer = new ArrayList<String>() {{
+      add("1");
+      add("2");
+      add("3");
+      add("4");
+    }};
+    ArrayList<String> inputNumbers = new ArrayList<String>() {{
+      add("2");
+      add("1");
+      add("4");
+      add("3");
+    }};
+    Facade facade = mock(Facade.class);
+    when(facade.mapInputToList("2 1 4 3")).thenReturn(inputNumbers);
+
+    String result = referee.judge("2 1 4 3", answer);
+
+    assertEquals("0A4B", result);
+  }
 }
