@@ -8,4 +8,8 @@ public class Facade {
   public List<String> mapInputToList(String inputNumbers) {
     return Arrays.stream(inputNumbers.split(" ")).collect(Collectors.toList());
   }
+
+  public String mapCountToOutput(String correctCount, String positionCorrectCount) {
+    return correctCount + "A" + positionCorrectCount + "B";
+  }
 }
