@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 public class AnswerGenerator {
 
-  public List<Integer> generate() {
+  public List<String> generate() {
     int MIN_ANSWER = 0;
     int MAX_ANSWER = 9;
     int ANSWER_SIZE = 4;
@@ -16,6 +16,7 @@ public class AnswerGenerator {
         .distinct()
         .limit(ANSWER_SIZE)
         .boxed()
+        .map(String::valueOf)
         .collect(Collectors.toList());
   }
 }

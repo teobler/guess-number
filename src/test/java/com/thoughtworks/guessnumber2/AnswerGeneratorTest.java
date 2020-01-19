@@ -18,24 +18,24 @@ public class AnswerGeneratorTest {
 
   @Test
   public void should_return_a_list_contains_4_numbers() {
-    List<Integer> answer = answerGenerator.generate();
+    List<String> answer = answerGenerator.generate();
 
     assertEquals(4, answer.size());
   }
 
   @Test
   public void answer_number_should_between_0_and_9() {
-    List<Integer> answer = answerGenerator.generate();
+    List<String> answer = answerGenerator.generate();
 
-    answer.forEach(number -> {
-      assertTrue(number >= 0);
-      assertTrue(number <= 9);
+    answer.forEach(stringNumber -> {
+      assertTrue(Integer.parseInt(stringNumber) >= 0);
+      assertTrue(Integer.parseInt(stringNumber) <= 9);
     });
   }
 
   @Test
   public void answer_number_should_different_with_each_other() {
-    List<Integer> answer = answerGenerator.generate();
+    List<String> answer = answerGenerator.generate();
 
     assertTrue(answer.stream().allMatch(new HashSet<>()::add));
   }
