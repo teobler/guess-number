@@ -28,7 +28,7 @@ public class RefereeTest {
     }};
     String result = referee.judge("5 6 7 8", answer);
 
-    assertEquals(result, "0A0B");
+    assertEquals("0A0B", result);
   }
 
   @Test
@@ -50,6 +50,28 @@ public class RefereeTest {
 
     String result = referee.judge("2 6 7 8", answer);
 
-    assertEquals(result, "0A1B");
+    assertEquals("0A1B", result);
+  }
+
+  @Test
+  public void should_return_1A0B_given_guess_numbers_match_1_correct_number() {
+    List<String> answer = new ArrayList<String>() {{
+      add("1");
+      add("2");
+      add("3");
+      add("4");
+    }};
+    ArrayList<String> inputNumbers = new ArrayList<String>() {{
+      add("1");
+      add("6");
+      add("7");
+      add("8");
+    }};
+    Facade facade = mock(Facade.class);
+    when(facade.mapInputToList("1 6 7 8")).thenReturn(inputNumbers);
+
+    String result = referee.judge("1 6 7 8", answer);
+
+    assertEquals("1A0B", result);
   }
 }

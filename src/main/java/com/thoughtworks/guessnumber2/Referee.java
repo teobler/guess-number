@@ -7,7 +7,17 @@ public class Referee {
 
   public String judge(String input, List<String> answer) {
     List<String> inputNumbers = facade.mapInputToList(input);
-    String positionCorrectCount = String.valueOf(inputNumbers.stream().filter(answer::contains).count());
-    return "0A" + positionCorrectCount + "B";
+    String correctCount =
+        String.valueOf(
+            inputNumbers.stream()
+                .filter(number -> answer.indexOf(number) == inputNumbers.indexOf(number))
+                .count());
+    String positionCorrectCount =
+        String.valueOf(
+            inputNumbers.stream()
+                .filter(number -> answer.indexOf(number) != inputNumbers.indexOf(number))
+                .filter(answer::contains)
+                .count());
+    return correctCount + "A" + positionCorrectCount + "B";
   }
 }
