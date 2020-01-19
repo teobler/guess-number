@@ -18,6 +18,7 @@ public class Referee {
                 .filter(number -> answer.indexOf(number) != inputNumbers.indexOf(number))
                 .filter(answer::contains)
                 .count());
-    return correctCount + "A" + positionCorrectCount + "B";
+
+    return facade.mapCountToOutput(correctCount, positionCorrectCount);
   }
 }
