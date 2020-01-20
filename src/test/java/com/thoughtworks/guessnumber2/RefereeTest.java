@@ -12,20 +12,21 @@ import static org.mockito.Mockito.when;
 
 public class RefereeTest {
   Referee referee;
+  List<String> answer;
 
   @Before
   public void setUp() {
     referee = new Referee();
-  }
-
-  @Test
-  public void should_return_0A0B_given_guess_numbers_match_nothing() {
-    List<String> answer = new ArrayList<String>() {{
+    answer = new ArrayList<String>() {{
       add("1");
       add("2");
       add("3");
       add("4");
     }};
+  }
+
+  @Test
+  public void should_return_0A0B_given_guess_numbers_match_nothing() {
     String result = referee.judge(answer, "5 6 7 8");
 
     assertEquals("0A0B", result);
@@ -33,12 +34,6 @@ public class RefereeTest {
 
   @Test
   public void should_return_0A1B_given_guess_numbers_match_1_correct_number_without_position() {
-    List<String> answer = new ArrayList<String>() {{
-      add("1");
-      add("2");
-      add("3");
-      add("4");
-    }};
     ArrayList<String> inputNumbers = new ArrayList<String>() {{
       add("2");
       add("6");
@@ -55,12 +50,6 @@ public class RefereeTest {
 
   @Test
   public void should_return_1A0B_given_guess_numbers_match_1_correct_number() {
-    List<String> answer = new ArrayList<String>() {{
-      add("1");
-      add("2");
-      add("3");
-      add("4");
-    }};
     ArrayList<String> inputNumbers = new ArrayList<String>() {{
       add("1");
       add("6");
@@ -77,12 +66,6 @@ public class RefereeTest {
 
   @Test
   public void should_return_1A1B_given_guess_numbers_match_1_correct_number_and_1_correct_number_without_position() {
-    List<String> answer = new ArrayList<String>() {{
-      add("1");
-      add("2");
-      add("3");
-      add("4");
-    }};
     ArrayList<String> inputNumbers = new ArrayList<String>() {{
       add("1");
       add("6");
@@ -99,12 +82,6 @@ public class RefereeTest {
 
   @Test
   public void should_return_2A0B_given_guess_numbers_match_2_correct_numbers() {
-    List<String> answer = new ArrayList<String>() {{
-      add("1");
-      add("2");
-      add("3");
-      add("4");
-    }};
     ArrayList<String> inputNumbers = new ArrayList<String>() {{
       add("1");
       add("2");
@@ -121,12 +98,6 @@ public class RefereeTest {
 
   @Test
   public void should_return_0A2B_given_guess_numbers_match_2_correct_numbers_without_position() {
-    List<String> answer = new ArrayList<String>() {{
-      add("1");
-      add("2");
-      add("3");
-      add("4");
-    }};
     ArrayList<String> inputNumbers = new ArrayList<String>() {{
       add("2");
       add("7");
@@ -143,12 +114,6 @@ public class RefereeTest {
 
   @Test
   public void should_return_4A0B_given_guess_numbers_match_4_correct_numbers() {
-    List<String> answer = new ArrayList<String>() {{
-      add("1");
-      add("2");
-      add("3");
-      add("4");
-    }};
     ArrayList<String> inputNumbers = new ArrayList<String>() {{
       add("1");
       add("2");
@@ -165,12 +130,6 @@ public class RefereeTest {
 
   @Test
   public void should_return_0A4B_given_guess_numbers_match_4_correct_numbers_without_position() {
-    List<String> answer = new ArrayList<String>() {{
-      add("1");
-      add("2");
-      add("3");
-      add("4");
-    }};
     ArrayList<String> inputNumbers = new ArrayList<String>() {{
       add("2");
       add("1");
