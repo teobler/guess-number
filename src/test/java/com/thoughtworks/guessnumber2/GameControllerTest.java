@@ -40,4 +40,20 @@ public class GameControllerTest {
 
     assertEquals("1A0B", gameController.getResult());
   }
+
+  @Test
+  public void should_return_just_one_result_given_just_one_correct_guessing() {
+    String input = "1 2 3 4";
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    System.setIn(in);
+    AnswerGenerator answerGenerator = mock(AnswerGenerator.class);
+    when(answerGenerator.generate()).thenReturn(answer);
+    Referee referee = mock(Referee.class);
+    when(referee.judge(answer, input)).thenReturn("4A0B");
+    GameController gameController = new GameController(answerGenerator, referee);
+
+    gameController.run();
+
+    assertEquals("4A0B", gameController.getResult());
+  }
 }
