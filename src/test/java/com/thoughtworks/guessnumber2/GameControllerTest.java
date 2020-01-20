@@ -1,10 +1,13 @@
 package com.thoughtworks.guessnumber2;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +16,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class GameControllerTest {
+  private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+  private final PrintStream originalOut = System.out;
   List<String> answer;
+  AnswerGenerator answerGenerator;
+  Referee referee;
+  Validator validator;
+  Announcer announcer;
 
   @Before
   public void setUp() {
@@ -23,6 +32,17 @@ public class GameControllerTest {
       add("3");
       add("4");
     }};
+    answerGenerator = mock(AnswerGenerator.class);
+    referee = mock(Referee.class);
+    validator = mock(Validator.class);
+    announcer = mock(Announcer.class);
+    System.setOut(new PrintStream(outContent));
+    announcer = new Announcer();
+  }
+
+  @After
+  public void tearDown() {
+    System.setOut(originalOut);
   }
 
   @Test
@@ -30,11 +50,9 @@ public class GameControllerTest {
     String input = "1 5 6 7";
     InputStream in = new ByteArrayInputStream(input.getBytes());
     System.setIn(in);
-    AnswerGenerator answerGenerator = mock(AnswerGenerator.class);
     when(answerGenerator.generate()).thenReturn(answer);
-    Referee referee = mock(Referee.class);
     when(referee.judge(answer, input)).thenReturn("1A0B");
-    GameController gameController = new GameController(answerGenerator, referee);
+    GameController gameController = new GameController(answerGenerator, referee, validator, announcer);
 
     gameController.run();
 
@@ -46,11 +64,9 @@ public class GameControllerTest {
     String input = "1 2 3 4";
     InputStream in = new ByteArrayInputStream(input.getBytes());
     System.setIn(in);
-    AnswerGenerator answerGenerator = mock(AnswerGenerator.class);
     when(answerGenerator.generate()).thenReturn(answer);
-    Referee referee = mock(Referee.class);
     when(referee.judge(answer, input)).thenReturn("4A0B");
-    GameController gameController = new GameController(answerGenerator, referee);
+    GameController gameController = new GameController(answerGenerator, referee, validator, announcer);
 
     gameController.run();
 
@@ -62,12 +78,10 @@ public class GameControllerTest {
     String input = "1 5 6 7\n1 3 6 7";
     InputStream in = new ByteArrayInputStream(input.getBytes());
     System.setIn(in);
-    AnswerGenerator answerGenerator = mock(AnswerGenerator.class);
     when(answerGenerator.generate()).thenReturn(answer);
-    Referee referee = mock(Referee.class);
     when(referee.judge(answer, "1 5 6 7")).thenReturn("1A0B");
     when(referee.judge(answer, "1 3 6 7")).thenReturn("1A1B");
-    GameController gameController = new GameController(answerGenerator, referee);
+    GameController gameController = new GameController(answerGenerator, referee, validator, announcer);
 
     gameController.run();
 
@@ -80,12 +94,10 @@ public class GameControllerTest {
     String input = "1 2 3 4\n1 3 6 7";
     InputStream in = new ByteArrayInputStream(input.getBytes());
     System.setIn(in);
-    AnswerGenerator answerGenerator = mock(AnswerGenerator.class);
     when(answerGenerator.generate()).thenReturn(answer);
-    Referee referee = mock(Referee.class);
     when(referee.judge(answer, "1 2 3 4")).thenReturn("4A0B");
     when(referee.judge(answer, "1 3 6 7")).thenReturn("1A1B");
-    GameController gameController = new GameController(answerGenerator, referee);
+    GameController gameController = new GameController(answerGenerator, referee, validator, announcer);
 
     gameController.run();
 
@@ -98,11 +110,9 @@ public class GameControllerTest {
     String input = "1 3 6 7\n1 3 6 7\n1 3 6 7\n1 3 6 7\n1 3 6 7\n1 3 6 7";
     InputStream in = new ByteArrayInputStream(input.getBytes());
     System.setIn(in);
-    AnswerGenerator answerGenerator = mock(AnswerGenerator.class);
     when(answerGenerator.generate()).thenReturn(answer);
-    Referee referee = mock(Referee.class);
     when(referee.judge(answer, "1 3 6 7")).thenReturn("1A1B");
-    GameController gameController = new GameController(answerGenerator, referee);
+    GameController gameController = new GameController(answerGenerator, referee, validator, announcer);
 
     gameController.run();
 
@@ -116,11 +126,9 @@ public class GameControllerTest {
     String input = "1 3 6 7\n1 3 6 7\n1 3 6 7\n1 3 6 7\n1 3 6 7\n1 3 6 7\n1 3 6 7";
     InputStream in = new ByteArrayInputStream(input.getBytes());
     System.setIn(in);
-    AnswerGenerator answerGenerator = mock(AnswerGenerator.class);
     when(answerGenerator.generate()).thenReturn(answer);
-    Referee referee = mock(Referee.class);
     when(referee.judge(answer, "1 3 6 7")).thenReturn("1A1B");
-    GameController gameController = new GameController(answerGenerator, referee);
+    GameController gameController = new GameController(answerGenerator, referee, validator, announcer);
 
     gameController.run();
 
@@ -134,17 +142,29 @@ public class GameControllerTest {
     String input = "1 3 6 7\n1 2 3 4\n1 3 6 7";
     InputStream in = new ByteArrayInputStream(input.getBytes());
     System.setIn(in);
-    AnswerGenerator answerGenerator = mock(AnswerGenerator.class);
     when(answerGenerator.generate()).thenReturn(answer);
-    Referee referee = mock(Referee.class);
     when(referee.judge(answer, "1 3 6 7")).thenReturn("1A1B");
     when(referee.judge(answer, "1 2 3 4")).thenReturn("4A0B");
-    GameController gameController = new GameController(answerGenerator, referee);
+    GameController gameController = new GameController(answerGenerator, referee, validator, announcer);
 
     gameController.run();
 
     assertEquals(2, gameController.getResult().size());
     assertEquals("1A1B", gameController.getResult().get(0));
     assertEquals("4A0B", gameController.getResult().get(1));
+  }
+
+  @Test
+  public void should_print_wrong_input_input_again_given_a_invalid_input() {
+    String input = "1 3 6";
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    System.setIn(in);
+    when(validator.verify(input)).thenReturn("Wrong input, input again");
+    GameController gameController = new GameController(answerGenerator, referee, validator, announcer);
+
+    gameController.run();
+
+    assertEquals(0, gameController.getResult().size());
+    assertEquals("Wrong input, input again", outContent.toString());
   }
 }
