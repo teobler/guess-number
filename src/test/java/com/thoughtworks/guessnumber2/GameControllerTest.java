@@ -38,7 +38,7 @@ public class GameControllerTest {
 
     gameController.run();
 
-    assertEquals("1A0B", gameController.getResult());
+    assertEquals("1A0B", gameController.getResult().get(0));
   }
 
   @Test
@@ -54,6 +54,24 @@ public class GameControllerTest {
 
     gameController.run();
 
-    assertEquals("4A0B", gameController.getResult());
+    assertEquals("4A0B", gameController.getResult().get(0));
+  }
+
+  @Test
+  public void should_return_two_results_given_two_wrong_guessing() {
+    String input = "1 5 6 7\n1 3 6 7";
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    System.setIn(in);
+    AnswerGenerator answerGenerator = mock(AnswerGenerator.class);
+    when(answerGenerator.generate()).thenReturn(answer);
+    Referee referee = mock(Referee.class);
+    when(referee.judge(answer, "1 5 6 7")).thenReturn("1A0B");
+    when(referee.judge(answer, "1 3 6 7")).thenReturn("1A1B");
+    GameController gameController = new GameController(answerGenerator, referee);
+
+    gameController.run();
+
+    assertEquals("1A0B", gameController.getResult().get(0));
+    assertEquals("1A1B", gameController.getResult().get(1));
   }
 }

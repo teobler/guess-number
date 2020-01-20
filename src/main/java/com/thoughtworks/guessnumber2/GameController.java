@@ -1,10 +1,12 @@
 package com.thoughtworks.guessnumber2;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class GameController {
 
-  private String result;
+  private List<String> result = new ArrayList<>();
   private AnswerGenerator answerGenerator;
   private Referee referee;
 
@@ -13,15 +15,18 @@ public class GameController {
     this.referee = referee;
   }
 
-  public String getResult() {
-    return result;
-  }
-
   public void run() {
     Scanner input = new Scanner(System.in);
 
-    String guessingNumber = input.nextLine();
+    for(int i = 0; i < 2; i++) {
+      if (input.hasNextLine()) {
+        String guessingNumber = input.nextLine();
+        this.result.add(referee.judge(answerGenerator.generate(), guessingNumber));
+      }
+    }
+  }
 
-    this.result = referee.judge(answerGenerator.generate(), guessingNumber);
+  public List<String> getResult() {
+    return result;
   }
 }
