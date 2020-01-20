@@ -164,7 +164,7 @@ public class GameControllerTest {
     gameController.run();
 
     assertEquals(0, gameController.getResult().size());
-    assertEquals("Wrong input, input again", outContent.toString());
+    assertEquals("Wrong input, input again\n", outContent.toString());
   }
 
   @Test
@@ -181,6 +181,6 @@ public class GameControllerTest {
 
     assertEquals(1, gameController.getResult().size());
     assertEquals("4A0B", gameController.getResult().get(0));
-    assertEquals("Congratulations, you win !", outContent.toString());
+    assertEquals("Congratulations, you win !\n", outContent.toString());
   }
 }

@@ -43,13 +43,13 @@ public class AnnouncerTest {
   public void should_print_congratulations_information() {
     announcer.congratulations();
 
-    assertEquals("Congratulations, you win !", outContent.toString());
+    assertEquals("Congratulations, you win !\n", outContent.toString());
   }
 
   @Test
   public void should_print_error_message() {
     announcer.announceError("Wrong input, input again");
 
-    assertEquals("Wrong input, input again", outContent.toString());
+    assertEquals("Wrong input, input again\n", outContent.toString());
   }
 }

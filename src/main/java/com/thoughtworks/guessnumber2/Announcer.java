@@ -9,10 +9,10 @@ public class Announcer {
   }
 
   public void congratulations() {
-    System.out.print("Congratulations, you win !");
+    System.out.println("Congratulations, you win !");
   }
 
   public void announceError(String errorMessage) {
-    System.out.print(errorMessage);
+    System.out.println(errorMessage);
   }
 }
