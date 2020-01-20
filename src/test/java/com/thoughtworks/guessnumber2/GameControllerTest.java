@@ -128,4 +128,23 @@ public class GameControllerTest {
     assertEquals("1A1B", gameController.getResult().get(0));
     assertEquals("1A1B", gameController.getResult().get(5));
   }
+
+  @Test
+  public void should_return_two_results_given_one_wrong_guessing_one_correct_guessing_and_one_wrong_guessing() {
+    String input = "1 3 6 7\n1 2 3 4\n1 3 6 7";
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    System.setIn(in);
+    AnswerGenerator answerGenerator = mock(AnswerGenerator.class);
+    when(answerGenerator.generate()).thenReturn(answer);
+    Referee referee = mock(Referee.class);
+    when(referee.judge(answer, "1 3 6 7")).thenReturn("1A1B");
+    when(referee.judge(answer, "1 2 3 4")).thenReturn("4A0B");
+    GameController gameController = new GameController(answerGenerator, referee);
+
+    gameController.run();
+
+    assertEquals(2, gameController.getResult().size());
+    assertEquals("1A1B", gameController.getResult().get(0));
+    assertEquals("4A0B", gameController.getResult().get(1));
+  }
 }
