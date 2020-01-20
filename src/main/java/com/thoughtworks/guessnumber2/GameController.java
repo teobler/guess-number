@@ -37,6 +37,7 @@ public class GameController {
       }
 
       if (isResultHasValue() && isLastResultCorrect()) {
+        announcer.congratulations();
         input.close();
         break;
       }

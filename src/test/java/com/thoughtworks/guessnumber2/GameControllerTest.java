@@ -12,8 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class GameControllerTest {
   private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -166,5 +165,22 @@ public class GameControllerTest {
 
     assertEquals(0, gameController.getResult().size());
     assertEquals("Wrong input, input again", outContent.toString());
+  }
+
+  @Test
+  public void should_print_congratulations_given_correct_guessing() {
+    String input = "1 2 3 4";
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    System.setIn(in);
+    when(validator.verify(input)).thenReturn(null);
+    when(answerGenerator.generate()).thenReturn(answer);
+    when(referee.judge(answer, input)).thenReturn("4A0B");
+    GameController gameController = new GameController(answerGenerator, referee, validator, announcer);
+
+    gameController.run();
+
+    assertEquals(1, gameController.getResult().size());
+    assertEquals("4A0B", gameController.getResult().get(0));
+    assertEquals("Congratulations, you win !", outContent.toString());
   }
 }
