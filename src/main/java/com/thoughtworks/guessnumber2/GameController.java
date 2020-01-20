@@ -23,6 +23,10 @@ public class GameController {
         String guessingNumber = input.nextLine();
         this.result.add(referee.judge(answerGenerator.generate(), guessingNumber));
       }
+
+      if ("4A0B".equals(this.result.get(this.result.size() - 1))) {
+        break;
+      }
     }
   }
 
