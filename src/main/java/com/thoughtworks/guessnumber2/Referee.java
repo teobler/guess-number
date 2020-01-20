@@ -5,7 +5,7 @@ import java.util.List;
 public class Referee {
   Facade facade = new Facade();
 
-  public String judge(String input, List<String> answer) {
+  public String judge(List<String> answer, String input) {
     List<String> inputNumbers = facade.mapInputToList(input);
     String correctCount =
         String.valueOf(

@@ -26,7 +26,7 @@ public class RefereeTest {
       add("3");
       add("4");
     }};
-    String result = referee.judge("5 6 7 8", answer);
+    String result = referee.judge(answer, "5 6 7 8");
 
     assertEquals("0A0B", result);
   }
@@ -48,7 +48,7 @@ public class RefereeTest {
     Facade facade = mock(Facade.class);
     when(facade.mapInputToList("2 6 7 8")).thenReturn(inputNumbers);
 
-    String result = referee.judge("2 6 7 8", answer);
+    String result = referee.judge(answer, "2 6 7 8");
 
     assertEquals("0A1B", result);
   }
@@ -70,7 +70,7 @@ public class RefereeTest {
     Facade facade = mock(Facade.class);
     when(facade.mapInputToList("1 6 7 8")).thenReturn(inputNumbers);
 
-    String result = referee.judge("1 6 7 8", answer);
+    String result = referee.judge(answer, "1 6 7 8");
 
     assertEquals("1A0B", result);
   }
@@ -92,7 +92,7 @@ public class RefereeTest {
     Facade facade = mock(Facade.class);
     when(facade.mapInputToList("1 6 4 8")).thenReturn(inputNumbers);
 
-    String result = referee.judge("1 6 4 8", answer);
+    String result = referee.judge(answer, "1 6 4 8");
 
     assertEquals("1A1B", result);
   }
@@ -114,7 +114,7 @@ public class RefereeTest {
     Facade facade = mock(Facade.class);
     when(facade.mapInputToList("1 2 7 8")).thenReturn(inputNumbers);
 
-    String result = referee.judge("1 2 7 8", answer);
+    String result = referee.judge(answer, "1 2 7 8");
 
     assertEquals("2A0B", result);
   }
@@ -136,7 +136,7 @@ public class RefereeTest {
     Facade facade = mock(Facade.class);
     when(facade.mapInputToList("2 7 1 8")).thenReturn(inputNumbers);
 
-    String result = referee.judge("2 7 1 8", answer);
+    String result = referee.judge(answer, "2 7 1 8");
 
     assertEquals("0A2B", result);
   }
@@ -158,7 +158,7 @@ public class RefereeTest {
     Facade facade = mock(Facade.class);
     when(facade.mapInputToList("1 2 3 4")).thenReturn(inputNumbers);
 
-    String result = referee.judge("1 2 3 4", answer);
+    String result = referee.judge(answer, "1 2 3 4");
 
     assertEquals("4A0B", result);
   }
@@ -180,7 +180,7 @@ public class RefereeTest {
     Facade facade = mock(Facade.class);
     when(facade.mapInputToList("2 1 4 3")).thenReturn(inputNumbers);
 
-    String result = referee.judge("2 1 4 3", answer);
+    String result = referee.judge(answer, "2 1 4 3");
 
     assertEquals("0A4B", result);
   }
