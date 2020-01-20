@@ -25,7 +25,7 @@ public class GameControllerTest {
   }
 
   @Test
-  public void should_return_guessing_result_given_first_guessing() {
+  public void should_return_guessing_result_given_first_wrong_guessing() {
     String inputStringNumber = "1 5 6 7";
     Referee referee = mock(Referee.class);
     when(referee.judge(answer, inputStringNumber)).thenReturn("1A0B");
@@ -55,5 +55,19 @@ public class GameControllerTest {
     assertEquals(2, result.get().size());
     assertEquals("1A0B", result.get().get(0));
     assertEquals("2A0B", result.get().get(1));
+  }
+
+  @Test
+  public void should_return_guessing_result_given_first_correct_guessing() {
+    String firstInputStringNumber = "1 2 3 4";
+    Referee referee = mock(Referee.class);
+    when(referee.judge(answer, firstInputStringNumber)).thenReturn("4A0B");
+    GameController gameController = new GameController(referee);
+    List<String> result;
+
+    result = gameController.startNewRound(answer, firstInputStringNumber);
+
+    assertEquals(1, result.size());
+    assertEquals("4A0B", result.get(0));
   }
 }
