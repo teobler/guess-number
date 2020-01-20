@@ -45,4 +45,11 @@ public class AnnouncerTest {
 
     assertEquals("Congratulations, you win !", outContent.toString());
   }
+
+  @Test
+  public void should_print_error_message() {
+    announcer.announceError("Wrong input, input again");
+
+    assertEquals("Wrong input, input again", outContent.toString());
+  }
 }

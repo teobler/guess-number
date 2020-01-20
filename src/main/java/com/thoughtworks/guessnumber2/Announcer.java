@@ -11,4 +11,8 @@ public class Announcer {
   public void congratulations() {
     System.out.print("Congratulations, you win !");
   }
+
+  public void announceError(String errorMessage) {
+    System.out.print(errorMessage);
+  }
 }
