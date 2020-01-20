@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 public class GameController {
 
+  private final String CORRECT_OUTPUT = "4A0B";
+  private final int MAX_CHANCE_FOR_GUESSING = 6;
   private List<String> result = new ArrayList<>();
   private AnswerGenerator answerGenerator;
   private Referee referee;
@@ -18,16 +20,24 @@ public class GameController {
   public void run() {
     Scanner input = new Scanner(System.in);
 
-    for(int i = 0; i < 6; i++) {
+    for (int i = 0; i < MAX_CHANCE_FOR_GUESSING; i++) {
       if (input.hasNextLine()) {
-        String guessingNumber = input.nextLine();
-        this.result.add(referee.judge(answerGenerator.generate(), guessingNumber));
+        this.result.add(referee.judge(answerGenerator.generate(), input.nextLine()));
       }
 
-      if ("4A0B".equals(this.result.get(this.result.size() - 1))) {
+      if (isLastResultCorrect()) {
+        input.close();
         break;
       }
     }
+
+    input.close();
+  }
+
+  private boolean isLastResultCorrect() {
+    String lastResult = this.result.get(this.result.size() - 1);
+
+    return CORRECT_OUTPUT.equals(lastResult);
   }
 
   public List<String> getResult() {
