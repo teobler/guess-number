@@ -28,4 +28,16 @@ public class ValidatorTest {
 
     assertEquals("Wrong input, input again", errorMessage);
   }
+
+  @Test
+  public void should_return_error_message_given_a_input_but_length_not_4() {
+    List<String> inputStringNumbers = new ArrayList<>();
+    inputStringNumbers.add("1");
+    inputStringNumbers.add("2");
+    inputStringNumbers.add("3");
+
+    String errorMessage = validator.verify(inputStringNumbers);
+
+    assertEquals("Wrong input, input again", errorMessage);
+  }
 }
