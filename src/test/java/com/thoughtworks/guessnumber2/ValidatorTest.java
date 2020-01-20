@@ -3,9 +3,6 @@ package com.thoughtworks.guessnumber2;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 
 public class ValidatorTest {
@@ -18,25 +15,18 @@ public class ValidatorTest {
 
   @Test
   public void should_return_error_message_given_a_duplicate_number_input() {
-    List<String> inputStringNumbers = new ArrayList<>();
-    inputStringNumbers.add("1");
-    inputStringNumbers.add("1");
-    inputStringNumbers.add("2");
-    inputStringNumbers.add("3");
+    String inputStringNumber = "1 1 2 3";
 
-    String errorMessage = validator.verify(inputStringNumbers);
+    String errorMessage = validator.verify(inputStringNumber);
 
     assertEquals("Wrong input, input again", errorMessage);
   }
 
   @Test
   public void should_return_error_message_given_a_input_but_length_not_4() {
-    List<String> inputStringNumbers = new ArrayList<>();
-    inputStringNumbers.add("1");
-    inputStringNumbers.add("2");
-    inputStringNumbers.add("3");
+    String inputStringNumber = "1 3 2";
 
-    String errorMessage = validator.verify(inputStringNumbers);
+    String errorMessage = validator.verify(inputStringNumber);
 
     assertEquals("Wrong input, input again", errorMessage);
   }

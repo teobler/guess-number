@@ -1,16 +1,20 @@
 package com.thoughtworks.guessnumber2;
 
-import java.util.List;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class Validator {
 
-  public String verify(List<String> inputStringNumber) {
-    long distinctNumber = inputStringNumber.stream().distinct().count();
+  public String verify(String inputStringNumber) {
+    int distinctCount =
+        Arrays.stream(inputStringNumber.split(" "))
+            .collect(Collectors.toSet())
+            .size();
 
-    if (distinctNumber != 4) {
-      return "Wrong input, input again";
+    if (distinctCount == 4) {
+      return null;
     }
 
-    return null;
+    return "Wrong input, input again";
   }
 }
