@@ -38,4 +38,11 @@ public class AnnouncerTest {
 
     assertEquals("1A0B\n2A1B\n3A0B\n", outContent.toString());
   }
+
+  @Test
+  public void should_print_congratulations_information() {
+    announcer.congratulations();
+
+    assertEquals("Congratulations, you win !", outContent.toString());
+  }
 }
