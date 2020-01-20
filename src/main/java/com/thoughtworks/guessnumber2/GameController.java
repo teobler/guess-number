@@ -18,7 +18,7 @@ public class GameController {
   public void run() {
     Scanner input = new Scanner(System.in);
 
-    for(int i = 0; i < 2; i++) {
+    for(int i = 0; i < 6; i++) {
       if (input.hasNextLine()) {
         String guessingNumber = input.nextLine();
         this.result.add(referee.judge(answerGenerator.generate(), guessingNumber));

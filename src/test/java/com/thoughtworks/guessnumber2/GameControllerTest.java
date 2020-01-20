@@ -92,4 +92,22 @@ public class GameControllerTest {
     assertEquals(1, gameController.getResult().size());
     assertEquals("4A0B", gameController.getResult().get(0));
   }
+
+  @Test
+  public void should_return_six_results_given_six_wrong_guessing() {
+    String input = "1 3 6 7\n1 3 6 7\n1 3 6 7\n1 3 6 7\n1 3 6 7\n1 3 6 7";
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    System.setIn(in);
+    AnswerGenerator answerGenerator = mock(AnswerGenerator.class);
+    when(answerGenerator.generate()).thenReturn(answer);
+    Referee referee = mock(Referee.class);
+    when(referee.judge(answer, "1 3 6 7")).thenReturn("1A1B");
+    GameController gameController = new GameController(answerGenerator, referee);
+
+    gameController.run();
+
+    assertEquals(6, gameController.getResult().size());
+    assertEquals("1A1B", gameController.getResult().get(0));
+    assertEquals("1A1B", gameController.getResult().get(5));
+  }
 }
