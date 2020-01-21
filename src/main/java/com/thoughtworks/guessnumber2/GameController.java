@@ -23,13 +23,13 @@ public class GameController {
   }
 
   public void run() {
-    Scanner input = new Scanner(System.in);
     List<String> answer = answerGenerator.generate();
+    Scanner input = new Scanner(System.in);
 
     for (int i = 0; i < MAX_CHANCE_FOR_GUESSING; i++) {
       if (input.hasNextLine()) {
         String nextLine = input.nextLine();
-        if (validator.verify(nextLine) != null) {
+        if (isInputInvalid(nextLine)) {
           announcer.announceError(validator.verify(nextLine));
           continue;
         }
@@ -46,6 +46,10 @@ public class GameController {
     }
 
     input.close();
+  }
+
+  private boolean isInputInvalid(String nextLine) {
+    return validator.verify(nextLine) != null;
   }
 
   private boolean isResultHasValue() {
