@@ -34,6 +34,7 @@ public class GameController {
         }
 
         this.result.add(referee.judge(answerGenerator.generate(), nextLine));
+        announcer.announcePreviousResults(this.result);
       }
 
       if (isResultHasValue() && isLastResultCorrect()) {

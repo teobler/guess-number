@@ -183,4 +183,20 @@ public class GameControllerTest {
     assertEquals("4A0B", gameController.getResult().get(0));
     assertEquals("Congratulations, you win !\n", outContent.toString());
   }
+
+  @Test
+  public void should_print_previous_guessing_result_after_new_guessing_input() {
+    String input = "1 3 5 6\n1 3 4 2\n";
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    System.setIn(in);
+    when(validator.verify(input)).thenReturn(null);
+    when(answerGenerator.generate()).thenReturn(answer);
+    when(referee.judge(answer, "1 3 5 6")).thenReturn("1A1B");
+    when(referee.judge(answer, "1 3 4 2")).thenReturn("1A3B");
+    GameController gameController = new GameController(answerGenerator, referee, validator, announcer);
+
+    gameController.run();
+
+    assertEquals("1A1B\n1A1B\n1A3B\n", outContent.toString());
+  }
 }
