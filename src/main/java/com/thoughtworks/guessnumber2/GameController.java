@@ -24,6 +24,7 @@ public class GameController {
 
   public void run() {
     Scanner input = new Scanner(System.in);
+    List<String> answer = answerGenerator.generate();
 
     for (int i = 0; i < MAX_CHANCE_FOR_GUESSING; i++) {
       if (input.hasNextLine()) {
@@ -33,7 +34,7 @@ public class GameController {
           continue;
         }
 
-        this.result.add(referee.judge(answerGenerator.generate(), nextLine));
+        this.result.add(referee.judge(answer, nextLine));
         announcer.announcePreviousResults(this.result);
       }
 
