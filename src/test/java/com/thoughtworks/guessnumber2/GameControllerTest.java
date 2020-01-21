@@ -181,7 +181,7 @@ public class GameControllerTest {
 
     assertEquals(1, gameController.getResult().size());
     assertEquals("4A0B", gameController.getResult().get(0));
-    assertEquals("Congratulations, you win !\n", outContent.toString());
+    assertEquals("4A0B\nCongratulations, you win !\n", outContent.toString());
   }
 
   @Test
